@@ -4,7 +4,7 @@ ENV LINUX_USER=dockeruser
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y git unzip zip nodejs zsh vim sudo wget redis-tools npm
+RUN apt-get update && apt-get install -y git unzip zip nodejs zsh vim sudo wget redis-tools
 
 WORKDIR /var/www/html
 
@@ -21,8 +21,6 @@ RUN echo "Install XDEBUG" && \
     echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
     echo "xdebug.client_port=9005" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
     pecl clear-cache
-
-RUN npm install -g @angular/cli
 
 # creates the user with uid/guid = host's uid/guid
 RUN groupadd --gid 1000 ${LINUX_USER} && useradd -ms /bin/zsh --uid 1000 --gid 1000 --password "$(openssl passwd -6 ${LINUX_USER})" ${LINUX_USER}
