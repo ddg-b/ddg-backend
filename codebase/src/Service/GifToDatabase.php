@@ -71,7 +71,7 @@ class GifToDatabase
             try {
                 $f = $this->httpClient->request('GET', $src, ['timeout' => 2.5])->getContent();
             } catch (TransportExceptionInterface $e) {
-                $this->filesystem->appendToFile('res_404.txt', $src);
+                $this->filesystem->appendToFile($this->resources_dir.'/'.self::FILES['404'], $src);
                 echo PHP_EOL.'not reachable : '.$src;
 
                 continue;
