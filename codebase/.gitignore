@@ -9,7 +9,6 @@
 !/public/thumbs/.gitkeep
 /var/
 /vendor/
-/resources/
 ###< symfony/framework-bundle ###
 /src/Command/TestCommand.php
 /src/Controller/TestController.php
