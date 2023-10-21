@@ -1,0 +1,15 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/public/thumbs/*
+!/public/thumbs/.gitkeep
+/var/
+/vendor/
+/resources/
+###< symfony/framework-bundle ###
+/src/Command/TestCommand.php
+/src/Controller/TestController.php

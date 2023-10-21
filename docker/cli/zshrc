@@ -1,0 +1,12 @@
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="steeef"
+HIST_STAMPS="yyyy-mm-dd"
+plugins=(git extract)
+source $ZSH/oh-my-zsh.sh
+
+export EDITOR=vim
+
+alias l='ls -lhtr --color=tty'
+alias la='ls -alh --color=tty'
+alias ll='ls -lh --color=tty'
+alias t='tail -n 200 -f'

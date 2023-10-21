@@ -1,0 +1,38 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    hfr_base_url: "%env(resolve:HFR_BASE_URL)%"
+    hfr_forum_image: "%env(resolve:HFR_FORUM_IMAGE)%"
+    imgur_proxy: "%env(resolve:IMGUR_PROXY)%"
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # noinspection SpellCheckingInspection
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            string $resources_dir: '%kernel.project_dir%/resources'
+            string $thumbs_dir: '%kernel.project_dir%/public/thumbs'
+            $hfrForumImage: '%hfr_forum_image%'
+            $imgurProxy: '%imgur_proxy%'
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+    App\State\TagProcessor:
+        bind:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+    App\State\TagProvider:
+        bind:
+            $itemProvider: '@api_platform.doctrine.orm.state.item_provider'
+    App\State\UserProvider:
+        bind:
+            $itemProvider: '@api_platform.doctrine.orm.state.item_provider'
