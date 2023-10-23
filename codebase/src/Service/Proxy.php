@@ -10,12 +10,17 @@ class Proxy
     {
     }
 
-    function getSrc(string $src): string
+    public function getSrc(string $src): string
     {
         if (u($src)->containsAny('imgur.com')) {
             return preg_replace('/^https:\/\/([^\/]+)/', $this->imgurProxy, $src);
         } else {
             return $src;
         }
+    }
+
+    public function getImgurProxy(): string
+    {
+        return $this->imgurProxy;
     }
 }
