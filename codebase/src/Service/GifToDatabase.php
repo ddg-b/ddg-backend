@@ -79,7 +79,9 @@ class GifToDatabase
             $md5 = \md5($f);
             $existingGif = $this->em->getRepository(Gif::class)->findOneBy(['hash' => $md5]);
             if ($existingGif instanceof Gif) {
-                $this->saveDuplicated($existingGif, $src);
+                if (!u($src)->containsAny($this->proxy->getImgurProxy())) {
+                    $this->saveDuplicated($existingGif, $src);
+                }
 
                 continue;
             }
