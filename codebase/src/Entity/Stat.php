@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\StatRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +21,7 @@ class Stat
     #[Groups(['gif:read'])]
     private ?\DateTimeImmutable $first_use = null;
 
-    #[ORM\ManyToOne(inversedBy: 'originalGifs')]
+    #[ORM\ManyToOne(fetch: 'EAGER', inversedBy: 'originalGifs')]
     #[Groups(['gif:read'])]
     private ?User $first_use_user = null;
 
@@ -28,7 +29,7 @@ class Stat
     #[Groups(['gif:read'])]
     private ?\DateTimeInterface $last_use = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(fetch: 'EAGER')]
     #[Groups(['gif:read'])]
     private ?User $last_use_user = null;
 
