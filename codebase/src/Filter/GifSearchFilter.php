@@ -60,17 +60,19 @@ class GifSearchFilter extends AbstractFilter
     public function apply(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, Operation $operation = null, array $context = []): void
     {
         parent::apply($queryBuilder, $queryNameGenerator, $resourceClass, $operation, $context);
-
-        $paginator = new Paginator($queryBuilder);
-        $this->requestStack->getCurrentRequest()->getClientIp();
-        $logSearch = (new LogSearch())
-            ->setDate(new \DateTimeImmutable())
-            ->setVisitor(sha1($this->requestStack->getCurrentRequest()->getClientIp()))
-            ->setSearch($context['filters']['search'] ?? 'UNKNOWN')
-            ->setCountRes($paginator->count())
-        ;
-        $this->em->persist($logSearch);
-        $this->em->flush();
+        $search = $context['filters']['search'] ?? null;
+        if (null !== $search) {
+            $paginator = new Paginator($queryBuilder);
+            $this->requestStack->getCurrentRequest()->getClientIp();
+            $logSearch = (new LogSearch())
+                ->setDate(new \DateTimeImmutable())
+                ->setVisitor(sha1($this->requestStack->getCurrentRequest()->getClientIp()))
+                ->setSearch($search)
+                ->setCountRes($paginator->count())
+            ;
+            $this->em->persist($logSearch);
+            $this->em->flush();
+        }
     }
 
     public function getDescription(string $resourceClass): array
