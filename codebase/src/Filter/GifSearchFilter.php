@@ -82,7 +82,7 @@ class GifSearchFilter extends AbstractFilter
                 'property' => null,
                 'type' => 'string',
                 'required' => false,
-                'swagger' => ['description' => ''],
+                'openapi' => ['description' => ''],
             ],
         ];
     }
